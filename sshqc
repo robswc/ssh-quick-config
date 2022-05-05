@@ -2,6 +2,20 @@
 CWD=$(pwd)
 echo "$CWD"
 
+# print helpers
+pl_error() {
+  printf "\t[\e[31mError\e[0m] %s\n" "$1"
+}
+
+pl_success() {
+  printf "\t[\e[32mSuccess\e[0m] %s\n" "$1"
+}
+
+pl_info() {
+  printf "\t%s\n" "$1"
+}
+
+
 # read input (cat or echo)
 read -r IN
 echo "$IN"
@@ -19,6 +33,18 @@ then
   exit "$E_NOTROOT"
 fi
 
+# check that ssh-keygen is installed
+if ! [ -x "$(command -v ssh-keygen)" ]; then
+  pl_error "Cannot find required 'ssh-keygen'" >&2
+  exit 1
+fi
+
+# check that sshpass is installed
+if ! [ -x "$(command -v sshpass)" ]; then
+  pl_error "Cannot find required 'sshpass'" >&2
+  exit 1
+fi
+
 # handle args
 handle_keys=false
 append_config=false
@@ -32,18 +58,6 @@ do
     esac
     shift
 done
-
-pl_error() {
-  printf "\t[\e[31mError\e[0m] %s\n" "$1"
-}
-
-pl_success() {
-  printf "\t[\e[32mSuccess\e[0m] %s\n" "$1"
-}
-
-pl_info() {
-  printf "\t%s\n" "$1"
-}
 
 save_key() {
   pl_info ": SAVING KEY"
