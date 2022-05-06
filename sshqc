@@ -23,14 +23,7 @@ usage() {
 echo -e "======> STARTING SSHQC"
 
 # check that input is being piped in
-if [ -t 1 ] ; 
-then
-  pl_error "Input must be piped in!"
-  usage
-  exit 0
-else 
-  pl_success "Found input from pipe!";
-fi
+echo usage
 
 # read input (cat or echo)
 read -r IN
