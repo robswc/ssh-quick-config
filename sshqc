@@ -23,7 +23,7 @@ usage() {
 echo -e "======> STARTING SSHQC"
 
 # check that input is being piped in
-echo usage
+usage
 
 # read input (cat or echo)
 read -r IN
