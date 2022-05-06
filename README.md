@@ -58,8 +58,10 @@ brew install https://raw.githubusercontent.com/kadwanev/bigboybrew/master/Librar
 ### Basic
 To use `sshqc` simply supply it, via `|` (pipe) with `name===host===password;` pairs.  Where `name` is the of the server/host, `host` is the host (i.e. user@192.168.0.10) and `password` is the password for the **host** user. 
 
+**Important: On OSX
+
 ```bash
-echo "MyServer===rob@192.168.0.10===MySecretPass007!" | sudo ./sshqc
+echo "MyServer===rob@192.168.0.10===MySecretPass007!" | sudo -E ./sshqc
 ```
 
 The above command will:

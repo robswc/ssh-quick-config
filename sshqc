@@ -32,7 +32,7 @@ read -r IN
 # set globals
 KEY=
 USER_PUB_KEY=
-USER_HOME=`getent passwd "$SUDO_USER" | cut -d: -f6` # legacy to help with linting
+USER_HOME="$HOME"
 
 # check user is root
 ROOT_UID=0
@@ -79,7 +79,7 @@ save_key() {
 
 get_key() {
   pl_info ": GETTING KEY"
-  KEY=`sshpass -p "$1" ssh "$2" 'cat ~/.ssh/id_rsa.pub'`
+  KEY=`sshpass -p "$1" ssh -o StrictHostKeyChecking=no "$2" 'cat ~/.ssh/id_rsa.pub'`
   if [ -z "$KEY" ]
   then
     pl_error "$KEY"
