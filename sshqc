@@ -27,7 +27,7 @@ usage
 
 # read input (cat or echo)
 read -r IN
-echo "$IN"
+# echo "$IN"
 
 # set globals
 KEY=
