@@ -101,7 +101,7 @@ add_authorized_key () {
 }
 
 get_user_pub() {
-  echo -e "======> \e[36mSTART\e[0m : local"
+  printf "======> \e[36mSTART\e[0m : local"
   pl_info ": GETTING $SUDO_USER's PUBLIC KEY"
   pub_dir="$USER_HOME/.ssh/id_rsa.pub"
   pl_info "Searching in $pub_dir ..."
@@ -156,7 +156,7 @@ while [ "$IN" != "$entry" ] ;do
     host=${credentials[1]}
     pw=${credentials[2]}
     # start cycle
-    echo -e "======> \e[36mSTART\e[0m : $config_name"
+    printf "======> \e[36mSTART\e[0m : %s" "$config_name"
     get_key "$pw" "$host" "$config_name"
     if [ -z "$KEY" ]
     then
