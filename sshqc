@@ -76,7 +76,7 @@ save_key() {
   else
     file="$HOME/.ssh/$2.key"
     touch "$file"
-    echo "$1" >> "$file"
+    echo "$1" > "$file"
     pl_success "Key saved!"
   fi
 
@@ -84,7 +84,7 @@ save_key() {
 
 get_key() {
   pl_info ": GETTING KEY"
-  KEY=$(sshpass -p "$1" ssh "$2" 'cat ~/.ssh/id_rsa')
+  KEY=$(sshpass -p "$1" ssh "$2" 'cat ~/.ssh/id_rsa.pub')
   if [ -z "$KEY" ]
   then
     pl_error "Could not get key for: $2 (Empty key file/doesn't exist)"
