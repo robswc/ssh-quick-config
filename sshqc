@@ -130,7 +130,7 @@ create_config() {
     echo "Host $name"
     echo -e "\tUser $user"
     echo -e "\tHostName $hostname"
-    echo -e "\tIdentityFile $USER_HOME/.ssh/$1.key"
+    # echo -e "\tIdentityFile $USER_HOME/.ssh/$1.key" # testing
     echo -e "\tPort 22"
   } >> "$config"
   pl_success "$1 block added!"
