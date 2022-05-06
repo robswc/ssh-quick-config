@@ -83,6 +83,7 @@ get_key() {
   KEY=$(sshpass -p "$1" ssh "$2" 'cat ~/.ssh/id_rsa.pub')
   if [ -z "$KEY" ]
   then
+    pl_error "$KEY"
     pl_error "Could not get key for: $2 (Empty key file/doesn't exist)"
   else
     pl_success "Key found!"
