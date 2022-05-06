@@ -43,25 +43,21 @@ then
 fi
 
 # check that ssh-keygen is installed
-if ! [ -x "$(command -v ssh-keygen)" ]; then
-  pl_error "Cannot find required 'ssh-keygen'" >&2
-  exit 1
+if ! [ -x "$(command -v ssh-keygen)" ]; then pl_error "Cannot find required 'ssh-keygen'" >&2; exit 1
 fi
 
 # check that sshpass is installed
-if ! [ -x "$(command -v sshpass)" ]; then
-  pl_error "Cannot find required 'sshpass'" >&2
-  exit 1
+if ! [ -x "$(command -v sshpass)" ]; then pl_error "Cannot find required 'sshpass'" >&2; exit 1
 fi
 
 # handle args
 handle_keys=false
-append_config=false
+new_config=false
 while test $# != 0
 do
     case "$1" in
     -k) handle_keys=true ;;
-    -a) append_config=true ;;
+    -n) new_config=true ;;
     --) shift; break;;
     *)  usage ;;
     esac
@@ -99,42 +95,9 @@ add_authorized_key () {
     user="${arg_array[0]}"
     hostname="${arg_array[1]}"
     pl_info ": ADDING KEY"
-
-    # create authorized keys file
-    sshpass -p "$1" ssh "$2" "touch /home/$user/.ssh/authorized_keys"
-    if [ $? -eq 0 ]
-    then
-      pl_info "Authorized keys file: GOOD"
-    else
-      pl_error "Error with creating authorized_keys on $host"
-    fi
-
-    # get authorized keys
-    authed_keys=$(sshpass -p "$1" ssh "$2" "cat /home/$user/.ssh/authorized_keys")
-    if [ -z "$authed_keys" ]
-    then
-      pl_error "Could not read authorized keys!"
-    else
-      pl_info "Reading authorized keys ..."
-    fi
-
-    # check if user's pub key in authed keys
-    if [[ "$authed_keys" == *"$USER_PUB_KEY"* ]];
-    then
-      pl_info "$SUDO_USER's key is already authorized!"
-      pl_success "Key authorized!"
-    else
-      pl_info "$SUDO_USER's key not in authorized_keys ..."
-      pl_info "adding $SUDO_USER's key to authorized_keys ..."
-      sshpass -p "$1" ssh "$2" "echo $USER_PUB_KEY >> /home/$user/.ssh/authorized_keys"
-      if [ $? -eq 0 ]
-      then
-        pl_success "Key authorized!"
-      else
-        pl_error "Error adding $SUDO_USER's key to $host"
-      fi
-    fi
-
+    echo
+    # use sshpass to add local user's key to server
+    sshpass -p "$1" ssh-copy-id -i ~/.ssh/id_rsa.pub "$2"
 }
 
 get_user_pub() {
