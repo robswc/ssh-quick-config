@@ -1,6 +1,4 @@
 #!/bin/bash
-CWD=$(pwd)
-echo "$CWD"
 
 # print helpers
 pl_error() {
@@ -15,6 +13,24 @@ pl_info() {
   printf "\t%s\n" "$1"
 }
 
+usage() {
+  echo -e "Usage: <INPUT> | sshqc [OPTIsON]"
+  echo
+  echo -e "* where input is name===host===password; pairs"
+  echo "See: _addWiki_"
+}
+
+echo -e "======> STARTING SSHQC"
+
+# check that input is being piped in
+if [ -t 1 ] ; 
+then
+  pl_error "Input must be piped in!"
+  usage
+  exit 0
+else 
+  pl_success "Found input from pipe!";
+fi
 
 # read input (cat or echo)
 read -r IN
