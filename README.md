@@ -1,3 +1,5 @@
+# WARNING : STILL IN EXPERIMENTAL STATE
+
 # ssh-quick-config
 Quickly and easily generates your SSH config file and handles the copying and adding of your keys to hosts.
 Made to save time from entering many multiple commands!
