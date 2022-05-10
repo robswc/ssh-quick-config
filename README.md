@@ -1,3 +1,5 @@
+# WARNING : CURRENTLY EXPERIMENTAL
+
 # ssh-quick-config
 Quickly and easily generates your SSH config file and handles the copying and adding of your keys to hosts.
 Made to save time from entering many multiple commands!
@@ -23,17 +25,19 @@ Installation can be done in one of two ways.
 
 The first is to simple use `wget` to download the latest version from GitHub.
 
+_*or `sudo curl -O ...` for OsX!_
+
 ```
-sudo wget https://raw.githubusercontent.com/robswc/upreq/main/upreq
+sudo wget https://raw.githubusercontent.com/robswc/ssh-quick-config/main/sshqc
 ```
 
 or, to make things easier
 
 ```
-sudo wget https://raw.githubusercontent.com/robswc/upreq/main/upreq;sudo mv upreq /bin;sudo chmod +x /bin/upreq
+sudo wget https://raw.githubusercontent.com/robswc/ssh-quick-config/main/sshqc;sudo mv sshqc /bin;sudo chmod +x /bin/sshqc
 ```
 
-The above set of commands will download via `wget`, move the file into your `/bin` and set the nessesary permissions.  This allows you to call `sshqc` anywhere.
+The above set of commands will download via `wget`, move the file into your `/bin` and set the necessary permissions.  This allows you to call `sshqc` anywhere.
 
 ## Dependencies
 
@@ -41,16 +45,21 @@ The `sshqc` script requires an additional piece of software.
 
 ### sshpass
 sshpass is a utility designed for running ssh using the mode referred to as "keyboard-interactive" password authentication, but in non-interactive mode.
+
+### ssh-keygen
+Before running `sshqc` one must first have a `~/.ssh` directory with a valid public key file.
+
 #### Ubuntu
 ```
 apt-get install sshpass
 ```
 #### OS X
 - [Requires xcode and command line tools](http://guide.macports.org/chunked/installing.xcode.html)
-- Requires homebrew
+- Requires homebrew/building from source
+
 The following is an unofficial brew package (warning, may not be up-to-date!)
 ```
-brew install https://raw.githubusercontent.com/kadwanev/bigboybrew/master/Library/Formula/sshpass.rb
+brew install hudochenkov/sshpass/sshpass
 ```
 
 ## Usage
